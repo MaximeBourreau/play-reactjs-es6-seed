@@ -15,13 +15,18 @@ libraryDependencies ++= Seq(
 
 val browserifyTask = taskKey[Seq[File]]("Run browserify")
 
+val browserifyOutputDir = settingKey[File]("Browserify output directory")
+
+browserifyOutputDir := target.value / "web" / "browserify"
+
 browserifyTask := {
   println("Running browserify");
-  "mkdir -p target/web/browserify" !;
-  "./node_modules/.bin/browserify -t [ babelify --presets [ es2015 react ] ] app/assets/javascripts/main.jsx -o target/web/browserify/main.js" !;
-  Nil
+  val outputFile = browserifyOutputDir.value / "main.js"
+  browserifyOutputDir.value.mkdirs
+  "./node_modules/.bin/browserify -t [ babelify --presets [ es2015 react ] ] app/assets/javascripts/main.jsx -o "+outputFile.getPath !;
+  List(outputFile)
 }
 
 sourceGenerators in Assets <+= browserifyTask
 
-unmanagedResources in Assets += baseDirectory.value / "target/web/browserify/main.js"
+resourceDirectories in Assets += browserifyOutputDir.value
