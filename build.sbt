@@ -10,7 +10,8 @@ libraryDependencies ++= Seq(
   jdbc,
   anorm,
   cache,
-  ws
+  ws,
+  "org.seleniumhq.selenium" % "selenium-java" % "2.45.0" % "test"
 )
 
 val browserifyTask = taskKey[Seq[File]]("Run browserify")
