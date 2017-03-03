@@ -22,7 +22,14 @@ browserifyTask := {
   println("Running browserify");
   val outputFile = browserifyOutputDir.value / "main.js"
   browserifyOutputDir.value.mkdirs
-  "./node_modules/.bin/browserify -t [ babelify --presets [ es2015 react ] ] app/assets/javascripts/main.jsx -o "+outputFile.getPath !;
+  val cmd = "./node_modules/.bin/browserify -t [ babelify --presets [ es2015 react ] ] app/assets/javascripts/main.jsx -o " + outputFile.getPath
+  val stderrBuffer = new scala.collection.mutable.ListBuffer[String]
+  val status = cmd ! new ProcessLogger {
+    def info(s: => String) {}
+    def error(s: => String) { stderrBuffer.append(s) }
+    def buffer[T](f: => T): T = f
+  }
+  if (status != 0) error(stderrBuffer.mkString("\n", "\n", "\n"))
   List(outputFile)
 }
 
