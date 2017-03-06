@@ -9,7 +9,8 @@ scalaVersion := "2.11.8"
 libraryDependencies ++= Seq(
   cache,
   ws,
-  "org.seleniumhq.selenium" % "selenium-java" % "2.45.0" % "test"
+  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
+  "org.seleniumhq.selenium" % "selenium-firefox-driver" % "3.2.0"
 )
 
 val browserifyTask = taskKey[Seq[File]]("Run browserify")

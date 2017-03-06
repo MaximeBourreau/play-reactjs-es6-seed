@@ -1,22 +1,16 @@
-import org.specs2.mutable._
-import org.specs2.runner._
-import org.junit.runner._
-
+import org.scalatestplus.play._
 import play.api.test._
 import play.api.test.Helpers._
 
-@RunWith(classOf[JUnitRunner])
-class IntegrationSpec extends Specification {
+class IntegrationSpec extends PlaySpec with OneServerPerTest with OneBrowserPerTest with FirefoxFactory {
 
   "Application" should {
 
-    "redirect to /#/hello/world" in new WithBrowser(webDriver = WebDriverFactory(FIREFOX)) {
+    "redirect to /#/hello/world" in {
 
-      browser.goTo("http://localhost:" + port + "/")
+      go to ("http://localhost:" + port)
 
-      browser.url must startWith("/#/hello/world")
-
-      scala.xml.XML.loadString(browser.pageSource).text must contain("Hello world !")
+      currentUrl must be("http://localhost:" + port + "/#/hello/world")
     }
   }
 }
