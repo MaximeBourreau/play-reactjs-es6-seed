@@ -9,6 +9,5 @@ Prerequisite :
 Usage :
 
 * Install npm dependencies with ```npm install```
-* You may have to adjust the line ```val cmd = "...``` in build.sbt
-  * On Windows it should be ```val cmd = ".\\node_modules\\.bin\\browserify.cmd -t [ babelify --presets [ es2015 react ] ] app\\assets\\javascripts\\main.jsx -o " + outputFile.getPath```
+* On Windows, replace ```./node_modules/.bin/browserify``` with ```./node_modules/.bin/browserify.cmd``` in the build.sbt file
 * Run with ```activator run```
