@@ -1,8 +1,7 @@
 import org.scalatestplus.play._
-import play.api.test._
-import play.api.test.Helpers._
+import org.scalatestplus.play.guice._
 
-class IntegrationSpec extends PlaySpec with OneServerPerTest with OneBrowserPerTest with FirefoxFactory {
+class IntegrationSpec extends PlaySpec with GuiceOneServerPerTest with OneBrowserPerTest with FirefoxFactory {
 
   "Application" should {
 

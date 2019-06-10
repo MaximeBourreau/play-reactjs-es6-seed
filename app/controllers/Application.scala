@@ -1,9 +1,11 @@
 package controllers
 
+import javax.inject._
 import play.api._
 import play.api.mvc._
 
-class Application extends Controller {
+@Singleton
+class Application @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   def index = Action {
     Ok(views.html.index())
